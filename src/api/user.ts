@@ -1,3 +1,4 @@
+// Server state calls API
 import { User } from '@/types/user';
 
 export type GetUsersFilters = {

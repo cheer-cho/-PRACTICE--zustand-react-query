@@ -1,26 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUsers } from './api/user';
-import { useUserStore } from './state/useStore';
-import { useEffect } from 'react';
+import { useUserStore } from './state/useUserStore';
 
 export default function App() {
-  const { users, setUsers } = useUserStore();
-  const { data } = useQuery({
-    queryKey: ['users'],
-    queryFn: () => getUsers(),
-  });
+  // Zustand handles client-side state
+  const { filters } = useUserStore();
 
-  useEffect(() => {
-    if (data) {
-      setUsers(data);
-    }
-  }, [data]);
+  // react-query handles server-side state
+  const { data } = useQuery({
+    queryKey: ['users, filters'],
+    queryFn: () => getUsers(filters),
+  });
 
   return (
     <div>
-      {users?.map((user) => {
+      <FilterComponent />
+      {data?.map((user) => {
         return <div key={user.id}>{user.name}</div>;
       })}
     </div>
   );
+}
+
+function FilterComponent() {
+  const { setFilters } = useUserStore();
+
+  // Imagine some form inputs here (filter form)
+  // and set the filter
+  return null;
 }
