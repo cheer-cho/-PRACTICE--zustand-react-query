@@ -10,5 +10,9 @@ export async function getUsers(filters?: GetUsersFilters) {
 
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return [{ id: 1, name: 'Cheer' }] as User[];
+  return [
+    { id: 1, name: 'Cheer' },
+    { id: 2, name: 'Cheer 1' },
+    { id: 3, name: 'Cheer 2' },
+  ] as User[];
 }
